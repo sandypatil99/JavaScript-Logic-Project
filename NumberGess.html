@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Number Guessing Game</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* styles.css */
+
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+}
+
+h1 {
+    color: #333;
+}
+
+button {
+    padding: 10px 20px;
+    margin-top: 10px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+input {
+    padding: 8px;
+    margin: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+    </style>
+</head>
+<body>
+    <script >
+        // script.js
+
+const randomNumber = Math.floor(Math.random() * 100) + 1;
+let attempts = 5;
+
+function checkGuess() {
+    const guess = parseInt(document.getElementById('guessInput').value);
+    if (isNaN(guess) || guess < 1 || guess > 100) {
+        setMessage('Please enter a valid number between 1 and 100');
+        return;
+    }
+
+    attempts--;
+
+    if (guess === randomNumber) {
+        setMessage(`Congratulations! You guessed the number in ${5 - attempts} attempts.`);
+    } else if (guess < randomNumber) {
+        setMessage(`Too low! You have ${attempts} attempts left.`);
+    } else {
+        setMessage(`Too high! You have ${attempts} attempts left.`);
+    }
+
+    if (attempts === 0) {
+        setMessage(`Game over! The number was ${randomNumber}.`);
+        disableInput();
+    }
+}
+
+function setMessage(message) {
+    document.getElementById('message').innerText = message;
+}
+
+function disableInput() {
+    document.getElementById('guessInput').disabled = true;
+}
+
+    </script>
+
+
+    <h1>Number Guessing Game</h1>
+    <p>Guess the number between 1 and 100</p>
+    <input type="text" id="guessInput">
+    <button onclick="checkGuess()">Submit Guess</button>
+    <div id="message"></div>
+</body>
+</html>
